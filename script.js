@@ -49,6 +49,11 @@ function Togglekorbe(id){
         AllCards.classList.remove('hidden');
         FilteredSection.classList.add('hidden');
     }
+    else
+    {
+        AllCards.classList.add('hidden')
+        
+    }
 
 
 
@@ -66,13 +71,13 @@ MainContainer.addEventListener('click', function(event){
     const Status = parentNode.querySelector('.Status').innerText
     const Para = parentNode.querySelector('.Para').innerText
 
-    parentNode.querySelector('.Status').innerText = 'Interview'
+    // parentNode.querySelector('.Status').innerText = 'Interview'
 
     const CardInfo = {
         Company,
         JobName,
         Description,
-        Status,
+        Status: 'Interview',
         Para
     }
 
@@ -83,7 +88,40 @@ MainContainer.addEventListener('click', function(event){
         InterviewList.push(CardInfo)
     }
 
+    TotalCount();
+
     keepInterview()
+    }
+    else if(event.target.classList.contains('Rejected'))
+    {
+        const parentNode = event.target.parentNode.parentNode;
+
+    const Company = parentNode.querySelector('.Company').innerText
+    const JobName = parentNode.querySelector('.JobName').innerText
+    const Description = parentNode.querySelector('.Description').innerText
+    const Status = parentNode.querySelector('.Status').innerText
+    const Para = parentNode.querySelector('.Para').innerText
+
+    // parentNode.querySelector('.Status').innerText = 'Interview'
+
+    const CardInfo = {
+        Company,
+        JobName,
+        Description,
+        Status: 'Rejected',
+        Para
+    }
+
+    const CardExist = RejectedList.find(item=> item.Company==CardInfo.Company)
+
+    if(!CardExist)
+    {
+        RejectedList.push(CardInfo)
+    }
+
+    TotalCount();
+
+    keepRejected()
     }
 })
 
@@ -92,6 +130,61 @@ function keepInterview() {
     FilteredSection.innerHTML = ''
 
     for(let i of InterviewList)
+    {
+
+
+        let div = document.createElement(`div`);
+        div.className = 'card flex justify-between bg-gray-100 p-4'
+
+        div.innerHTML = `
+        <div class="space-y-6">
+            <div>
+              <h2 class="Company font-bold text-2xl pb-1">${i.Company}</h2>
+              <p class="JobName text-gray-500 text-xl">
+                ${i.JobName}
+              </p>
+            </div>
+
+            <div>
+              <p class="Description text-gray-500">
+                ${i.Description}
+              </p>
+            </div>
+
+            <div class="space-y-1">
+              <button class="Status bg-gray-200 p-2">${i.Status}</button>
+              <p class=" Para text-gray-950">
+                ${i.Para}
+              </p>
+            </div>
+
+            <div class="flex space-x-2">
+              <button
+                class="Interviewed border-green-600 border-1 p-2 px-3 text-green-600 font-semibold rounded-lg"
+              >
+                INTERVIEW
+              </button>
+              <button
+                class="Rejected border-red-600 border-1 p-2 px-3 text-red-600 font-semibold rounded-lg"
+              >
+                REJECTED
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <i class="fa-solid fa-trash"></i>
+          </div>`
+
+          FilteredSection.appendChild(div)
+    }
+}
+
+function keepRejected() {
+
+    FilteredSection.innerHTML = ''
+
+    for(let i of RejectedList)
     {
 
 
