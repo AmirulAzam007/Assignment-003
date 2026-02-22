@@ -1,0 +1,143 @@
+let InterviewList = [];
+let RejectedList =  [];
+
+const Total = document.getElementById('Total');
+const InterviewTotal = document.getElementById('InterviewTotal');
+const RejectedTotal =  document.getElementById('RejectedTotal');
+
+const Allbtn = document.getElementById('Allbtn');
+const Interviewbtn = document.getElementById('Interviewbtn');
+const Rejectedbtn = document.getElementById('Rejectedbtn');
+
+ const MainContainer = document.querySelector('main')
+ const FilteredSection = document.getElementById('FilteredSection')
+
+
+
+
+const AllCards = document.getElementById('AllCards');
+
+function TotalCount(){
+
+    Total.innerText = AllCards.children.length;
+    InterviewTotal.innerText = InterviewList.length;
+    RejectedTotal.innerText = RejectedList.length;
+}
+
+TotalCount();
+
+function Togglekorbe(id){
+
+    Allbtn.classList.add('bg-gray-100', 'text-black')
+    Interviewbtn.classList.add('bg-gray-100', 'text-black')
+    Rejectedbtn.classList.add('bg-gray-100', 'text-black')
+
+    Allbtn.classList.remove('bg-blue-500', 'text-white')
+    Interviewbtn.classList.remove('bg-blue-500', 'text-white')
+    Rejectedbtn.classList.remove('bg-blue-500', 'text-white')
+
+    const MainId = document.getElementById(id)
+
+    MainId.classList.remove('bg-gray-100', 'text-black')
+    MainId.classList.add('bg-blue-500', 'text-white')
+
+    if(id=='Interviewbtn'){
+        AllCards.classList.add('hidden')
+        FilteredSection.classList.remove('hidden')
+    }
+    else if(id=='Allbtn'){
+        AllCards.classList.remove('hidden');
+        FilteredSection.classList.add('hidden');
+    }
+
+
+
+}
+
+MainContainer.addEventListener('click', function(event){
+    
+    if(event.target.classList.contains('Interviewed'))
+    {
+        const parentNode = event.target.parentNode.parentNode;
+
+    const Company = parentNode.querySelector('.Company').innerText
+    const JobName = parentNode.querySelector('.JobName').innerText
+    const Description = parentNode.querySelector('.Description').innerText
+    const Status = parentNode.querySelector('.Status').innerText
+    const Para = parentNode.querySelector('.Para').innerText
+
+    parentNode.querySelector('.Status').innerText = 'Interview'
+
+    const CardInfo = {
+        Company,
+        JobName,
+        Description,
+        Status,
+        Para
+    }
+
+    const CardExist = InterviewList.find(item=> item.Company==CardInfo.Company)
+
+    if(!CardExist)
+    {
+        InterviewList.push(CardInfo)
+    }
+
+    keepInterview()
+    }
+})
+
+function keepInterview() {
+
+    FilteredSection.innerHTML = ''
+
+    for(let i of InterviewList)
+    {
+
+
+        let div = document.createElement(`div`);
+        div.className = 'card flex justify-between bg-gray-100 p-4'
+
+        div.innerHTML = `
+        <div class="space-y-6">
+            <div>
+              <h2 class="Company font-bold text-2xl pb-1">${i.Company}</h2>
+              <p class="JobName text-gray-500 text-xl">
+                ${i.JobName}
+              </p>
+            </div>
+
+            <div>
+              <p class="Description text-gray-500">
+                ${i.Description}
+              </p>
+            </div>
+
+            <div class="space-y-1">
+              <button class="Status bg-gray-200 p-2">${i.Status}</button>
+              <p class=" Para text-gray-950">
+                ${i.Para}
+              </p>
+            </div>
+
+            <div class="flex space-x-2">
+              <button
+                class="Interviewed border-green-600 border-1 p-2 px-3 text-green-600 font-semibold rounded-lg"
+              >
+                INTERVIEW
+              </button>
+              <button
+                class="Rejected border-red-600 border-1 p-2 px-3 text-red-600 font-semibold rounded-lg"
+              >
+                REJECTED
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <i class="fa-solid fa-trash"></i>
+          </div>`
+
+          FilteredSection.appendChild(div)
+    }
+}
