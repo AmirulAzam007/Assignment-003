@@ -4,8 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 <body>
-    
+   <header class="w-[80%] mx-auto">
+     <h1 class="text-6xl font-bold text-black py-8">Job Application Tracker</h1>
+
+     <div class="grid grid-cols-3 gap-4">
+        <div class="bg-gray-100 p-4 rounded-2xl">
+            <p class="text-blue-950 font-bold">Total</p>
+            <p id="Total" class="text-blue-950 font-bold text-3xl">0</p>
+        </div>
+        <div class="bg-gray-100 p-4 rounded-2xl">
+            <p class="text-blue-950 font-bold">Interview</p>
+            <p id="InterviewTotal" class="text-green-500 font-bold text-3xl">0</p>
+        </div>
+        <div class="bg-gray-100 p-4 rounded-2xl">
+            <p class="text-blue-950 font-bold">Rejected</p>
+            <p id="RejectedTotal" class="text-red-500 font-bold text-3xl">0</p>
+        </div>
+     </div>
+   </header> 
+
+   <hr class="my-10 border-gray-300 w-[80%] mx-auto">
+
+   <main class="w-[80%] mx-auto">
+
+       <div class="flex justify-between pb-6">
+          <h4 class="text-blue-900 font-bold text-xl">Available Jobs</h4>
+          <p>0 jobs</p>
+       </div>
+
+       <button class="bg-blue-500 px-8 py-2 rounded-xl">All</button>
+       <button class="bg-gray-100 px-4 py-2 rounded-xl">Interview</button>
+       <button class="bg-gray-100 px-4 py-2 rounded-xl">Rejected</button>
+   </main>
 </body>
 </html>
