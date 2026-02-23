@@ -40,7 +40,7 @@
     <main class="w-[80%] mx-auto">
       <div class="flex justify-between pb-6">
         <h4 class="text-blue-900 font-bold text-xl">Available Jobs</h4>
-        <p><span id="TotalSide1">0</span> of <span id="TotalSide2">0</span> jobs</p>
+        <p><span id="TotalSide1" class="hidden">0</span><span id="TotalSide2" class="hidden">0</span><span id="of" class="hidden"> of  </span><span id="TotalSide3">0</span> jobs</p>
       </div>
 
       <div class="pb-4">
@@ -53,7 +53,12 @@
 
       </section>
 
-      <section id="AllCards" class="space-y-3 pb-10">
+      <section id="NoCards" class="bg-gray-100 p-4">
+         <img src="" alt="">
+                          
+      </section>
+
+      <section id="AllCards" class="space-y-3 pb-10 hidden">
         <!-- CARD 1 -->
         <div class="card flex justify-between bg-gray-100 p-4">
           <div class="space-y-6">
