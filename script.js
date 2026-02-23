@@ -1,9 +1,13 @@
 let InterviewList = [];
 let RejectedList =  [];
+let CurrentStatus = 'Allbtn'
 
 const Total = document.getElementById('Total');
 const InterviewTotal = document.getElementById('InterviewTotal');
 const RejectedTotal =  document.getElementById('RejectedTotal');
+
+const TotalSide2 = document.getElementById('TotalSide2');
+const TotalSide1 = document.getElementById('TotalSide1');
 
 const Allbtn = document.getElementById('Allbtn');
 const Interviewbtn = document.getElementById('Interviewbtn');
@@ -22,6 +26,16 @@ function TotalCount(){
     Total.innerText = AllCards.children.length;
     InterviewTotal.innerText = InterviewList.length;
     RejectedTotal.innerText = RejectedList.length;
+
+    TotalSide2.innerText = AllCards.children.length; 
+    
+    if(CurrentStatus=='Interviewbtn'){
+        TotalSide1.innerText = InterviewList.length;
+    }
+    else if(CurrentStatus=='Rejectedbtn'){
+        TotalSide1.innerText = RejectedList.length;
+
+    }
 }
 
 TotalCount();
@@ -38,21 +52,26 @@ function Togglekorbe(id){
 
     const MainId = document.getElementById(id)
 
+    CurrentStatus = id
+
     MainId.classList.remove('bg-gray-100', 'text-black')
     MainId.classList.add('bg-blue-500', 'text-white')
 
     if(id=='Interviewbtn'){
         AllCards.classList.add('hidden')
         FilteredSection.classList.remove('hidden')
+        keepInterview()
     }
     else if(id=='Allbtn'){
         AllCards.classList.remove('hidden');
         FilteredSection.classList.add('hidden');
     }
-    else
+    else  if(id=='Rejectedbtn')
     {
         AllCards.classList.add('hidden')
-        
+        FilteredSection.classList.remove('hidden')
+        keepRejected()
+
     }
 
 
@@ -71,7 +90,7 @@ MainContainer.addEventListener('click', function(event){
     const Status = parentNode.querySelector('.Status').innerText
     const Para = parentNode.querySelector('.Para').innerText
 
-    // parentNode.querySelector('.Status').innerText = 'Interview'
+    parentNode.querySelector('.Status').innerText = 'Interview'
 
     const CardInfo = {
         Company,
@@ -88,9 +107,17 @@ MainContainer.addEventListener('click', function(event){
         InterviewList.push(CardInfo)
     }
 
+    RejectedList = RejectedList.filter(item=> item.Company != CardInfo.Company)
+
+    if(CurrentStatus == 'Rejectedbtn'){
+        
+        keepRejected();
+
+    }
+
     TotalCount();
 
-    keepInterview()
+    
     }
     else if(event.target.classList.contains('Rejected'))
     {
@@ -102,7 +129,7 @@ MainContainer.addEventListener('click', function(event){
     const Status = parentNode.querySelector('.Status').innerText
     const Para = parentNode.querySelector('.Para').innerText
 
-    // parentNode.querySelector('.Status').innerText = 'Interview'
+    parentNode.querySelector('.Status').innerText = 'Rejected'
 
     const CardInfo = {
         Company,
@@ -119,9 +146,18 @@ MainContainer.addEventListener('click', function(event){
         RejectedList.push(CardInfo)
     }
 
+    InterviewList = InterviewList.filter(item=> item.Company != CardInfo.Company)
+
+    if(CurrentStatus == 'Interviewbtn'){
+        
+        keepInterview();
+
+    }
+
+
+
     TotalCount();
 
-    keepRejected()
     }
 })
 
@@ -177,6 +213,7 @@ function keepInterview() {
           </div>`
 
           FilteredSection.appendChild(div)
+
     }
 }
 
@@ -232,5 +269,7 @@ function keepRejected() {
           </div>`
 
           FilteredSection.appendChild(div)
+
+
     }
 }
