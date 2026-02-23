@@ -2,6 +2,13 @@ let InterviewList = [];
 let RejectedList = [];
 let CurrentStatus = "Allbtn";
 
+
+
+const cards = document.querySelectorAll(".card");
+
+let CardArr = Array.from(cards);
+
+
 const Total = document.getElementById("Total");
 const InterviewTotal = document.getElementById("InterviewTotal");
 const RejectedTotal = document.getElementById("RejectedTotal");
@@ -20,6 +27,7 @@ const MainContainer = document.querySelector("main");
 const FilteredSection = document.getElementById("FilteredSection");
 
 const AllCards = document.getElementById("AllCards");
+
 
 function TotalCount() {
   Total.innerText = AllCards.children.length;
@@ -60,17 +68,27 @@ function Togglekorbe(id) {
     {
       NoCards.classList.remove('hidden');
 
+      TotalSide1.classList.remove("hidden");
+      TotalSide2.classList.add("hidden");
+      TotalSide3.classList.add("hidden");
+      of.classList.add("hidden");
+
+
     }
     else
     {
       FilteredSection.classList.remove("hidden");
 
+      TotalSide1.classList.remove("hidden");
+      TotalSide2.classList.add("hidden");
+      of.classList.remove("hidden");
+
     }
 
 
-    TotalSide1.classList.remove("hidden");
-    TotalSide2.classList.add("hidden");
-    of.classList.remove("hidden");
+    // TotalSide1.classList.remove("hidden");
+    // TotalSide2.classList.add("hidden");
+    // of.classList.remove("hidden");
   
     keepInterview();
   } else if (id == "Allbtn") {
@@ -91,16 +109,21 @@ function Togglekorbe(id) {
     {
       NoCards.classList.remove('hidden');
 
+      TotalSide2.classList.remove("hidden");
+      TotalSide1.classList.add("hidden");
+      TotalSide3.classList.add("hidden");
+      of.classList.add("hidden");
+
     }
     else
     {
       FilteredSection.classList.remove("hidden");
+      TotalSide1.classList.add("hidden");
+      TotalSide2.classList.remove("hidden");
+      of.classList.remove("hidden");
 
     }
 
-    TotalSide1.classList.add("hidden");
-    TotalSide2.classList.remove("hidden");
-    of.classList.remove("hidden");
 
     keepRejected();
   }
@@ -146,6 +169,10 @@ MainContainer.addEventListener("click", function (event) {
       if(RejectedList.length==0)
       {
         NoCards.classList.remove('hidden');
+        TotalSide2.classList.remove("hidden");
+        TotalSide1.classList.add("hidden");
+        TotalSide3.classList.add("hidden");
+        of.classList.add("hidden");
       }
     }
 
@@ -188,8 +215,79 @@ MainContainer.addEventListener("click", function (event) {
       if(InterviewList.length==0)
       {
         NoCards.classList.remove('hidden');
+        TotalSide1.classList.remove("hidden");
+        TotalSide2.classList.add("hidden");
+        TotalSide3.classList.add("hidden");
+        of.classList.add("hidden");
       }
     }
+
+    TotalCount();
+  } else if (event.target.classList.contains("delete")) {
+    const parentNode = event.target.parentNode.parentNode;
+
+    const Company = parentNode.querySelector(".Company").innerText;
+    const JobName = parentNode.querySelector(".JobName").innerText;
+    const Description = parentNode.querySelector(".Description").innerText;
+    const Status = parentNode.querySelector(".Status").innerText;
+    const Para = parentNode.querySelector(".Para").innerText;
+
+    const carddelete = event.target.closest(".card");
+
+    carddelete.remove();
+
+    CardArr = CardArr.filter(item=>item !== carddelete)
+
+    if(CardArr.length==0)
+    {
+      NoCards.classList.remove('hidden');
+    }
+
+
+    const CardInfo = {
+      Company,
+      JobName,
+      Description,
+      Status: "Rejected",
+      Para,
+    };
+
+
+    if(CurrentStatus=='Interviewbtn'){
+      InterviewList = InterviewList.filter(
+      (item) => item.Company != CardInfo.Company,
+    );
+
+    keepInterview();
+
+    if(InterviewList.length==0)
+      {
+        NoCards.classList.remove('hidden');
+        TotalSide1.classList.remove("hidden");
+        TotalSide2.classList.add("hidden");
+        TotalSide3.classList.add("hidden");
+        of.classList.add("hidden");
+      }
+
+    }
+    else if(CurrentStatus=='Rejectedbtn'){
+      RejectedList = RejectedList.filter(
+      (item) => item.Company != CardInfo.Company,
+    );
+
+    keepRejected();
+
+    if(RejectedList.length==0)
+      {
+        NoCards.classList.remove('hidden');
+        TotalSide2.classList.remove("hidden");
+        TotalSide1.classList.add("hidden");
+        TotalSide3.classList.add("hidden");
+        of.classList.add("hidden");
+      }
+
+    }
+    
 
     TotalCount();
   }
@@ -239,7 +337,7 @@ function keepInterview() {
           </div>
 
           <div>
-            <i class="fa-solid fa-trash"></i>
+            <i class="fa-solid fa-trash delete"></i>
           </div>`;
 
     FilteredSection.appendChild(div);
@@ -290,9 +388,61 @@ function keepRejected() {
           </div>
 
           <div>
-            <i class="fa-solid fa-trash"></i>
+            <i class="fa-solid fa-trash delete"></i>
           </div>`;
 
     FilteredSection.appendChild(div);
   }
 }
+
+// function keepAll() {
+//   AllCards.innerHTML = "";
+
+//   for (let i of CardArr) {
+
+//     let div = document.createElement(`div`);
+//     div.className = "card flex justify-between bg-gray-100 p-4";
+
+//     div.innerHTML = `
+//         <div class="space-y-6">
+//             <div>
+//               <h2 class="Company font-bold text-2xl pb-1">${i.Company}</h2>
+//               <p class="JobName text-gray-500 text-xl">
+//                 ${i.JobName}
+//               </p>
+//             </div>
+
+//             <div>
+//               <p class="Description text-gray-500">
+//                 ${i.Description}
+//               </p>
+//             </div>
+
+//             <div class="space-y-1">
+//               <button class="Status bg-gray-200 p-2">${i.Status}</button>
+//               <p class=" Para text-gray-950">
+//                 ${i.Para}
+//               </p>
+//             </div>
+
+//             <div class="flex space-x-2">
+//               <button
+//                 class="Interviewed border-green-600 border-1 p-2 px-3 text-green-600 font-semibold rounded-lg"
+//               >
+//                 INTERVIEW
+//               </button>
+//               <button
+//                 class="Rejected border-red-600 border-1 p-2 px-3 text-red-600 font-semibold rounded-lg"
+//               >
+//                 REJECTED
+//               </button>
+//             </div>
+//           </div>
+
+//           <div>
+//             <i class="fa-solid fa-trash delete"></i>
+//           </div>`;
+
+//     AllCards.appendChild(div);
+//   }
+// }
