@@ -5,6 +5,7 @@ let CurrentStatus = "Allbtn";
 const Total = document.getElementById("Total");
 const InterviewTotal = document.getElementById("InterviewTotal");
 const RejectedTotal = document.getElementById("RejectedTotal");
+const NoCards = document.getElementById('NoCards');
 
 const TotalSide1 = document.getElementById("TotalSide1");
 const TotalSide2 = document.getElementById("TotalSide2");
@@ -50,8 +51,22 @@ function Togglekorbe(id) {
   MainId.classList.add("bg-blue-500", "text-white");
 
   if (id == "Interviewbtn") {
+
+
     AllCards.classList.add("hidden");
-    FilteredSection.classList.remove("hidden");
+    NoCards.classList.add('hidden');
+
+    if(InterviewList==0)
+    {
+      NoCards.classList.remove('hidden');
+
+    }
+    else
+    {
+      FilteredSection.classList.remove("hidden");
+
+    }
+
 
     TotalSide1.classList.remove("hidden");
     TotalSide2.classList.add("hidden");
@@ -61,6 +76,8 @@ function Togglekorbe(id) {
   } else if (id == "Allbtn") {
     AllCards.classList.remove("hidden");
     FilteredSection.classList.add("hidden");
+    NoCards.classList.add('hidden');
+
 
     TotalSide1.classList.add("hidden");
     TotalSide2.classList.add("hidden");
@@ -68,8 +85,19 @@ function Togglekorbe(id) {
     of.classList.add("hidden");
   } else if (id == "Rejectedbtn") {
     AllCards.classList.add("hidden");
-    FilteredSection.classList.remove("hidden");
+    NoCards.classList.add('hidden');
     
+    if(RejectedList==0)
+    {
+      NoCards.classList.remove('hidden');
+
+    }
+    else
+    {
+      FilteredSection.classList.remove("hidden");
+
+    }
+
     TotalSide1.classList.add("hidden");
     TotalSide2.classList.remove("hidden");
     of.classList.remove("hidden");
@@ -110,8 +138,15 @@ MainContainer.addEventListener("click", function (event) {
       (item) => item.Company != CardInfo.Company,
     );
 
+
     if (CurrentStatus == "Rejectedbtn") {
       keepRejected();
+      // Togglekorbe(Rejectedbtn);
+
+      if(RejectedList.length==0)
+      {
+        NoCards.classList.remove('hidden');
+      }
     }
 
     TotalCount();
@@ -148,6 +183,12 @@ MainContainer.addEventListener("click", function (event) {
 
     if (CurrentStatus == "Interviewbtn") {
       keepInterview();
+      // Togglekorbe(Interviewbtn);
+
+      if(InterviewList.length==0)
+      {
+        NoCards.classList.remove('hidden');
+      }
     }
 
     TotalCount();
