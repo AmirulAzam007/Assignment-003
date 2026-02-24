@@ -1,28 +1,32 @@
-1. Difference between getElementById, getElementsByClassName, and querySelector / querySelectorAll
+1. Difference Between getElementById, getElementsByClassName, and querySelector / querySelectorAll
 
-getElementById: Returns a single element with the specified ID. It’s very fast and straightforward, but only works for IDs.
+getElementById
+Retrieves a single element by its unique ID. Fast and simple, but limited to IDs only.
 
-getElementsByClassName: Returns a live collection of all elements with a specific class. Live means it automatically updates if the DOM changes.
+getElementsByClassName
+Returns a live collection of all elements with the specified class. Updates automatically if the DOM changes.
 
-querySelector: Returns the first element that matches any CSS selector (ID, class, tag, etc.).
+querySelector
+Returns the first element matching any CSS selector (ID, class, tag, or attribute).
 
-querySelectorAll: Returns all elements that match a CSS selector as a static NodeList (doesn’t change if the DOM changes).
+querySelectorAll
+Returns all elements matching a CSS selector as a static NodeList (does not automatically update if the DOM changes).
 
 Example:
 
 const myId = document.getElementById("myId");
 const myClass = document.getElementsByClassName("myClass");
-const firstQuery = document.querySelector(".myClass");
-const allQuery = document.querySelectorAll(".myClass");
+const firstMatch = document.querySelector(".myClass");
+const allMatches = document.querySelectorAll(".myClass");
 2. Creating and Inserting a New Element
 
-To add new elements dynamically:
+To dynamically add elements to the DOM:
 
 Create the element:
 
 const newDiv = document.createElement("div");
 
-Add content or attributes:
+Add content and attributes:
 
 newDiv.innerText = "Hello World";
 newDiv.classList.add("card");
@@ -30,28 +34,28 @@ newDiv.classList.add("card");
 Insert it into the DOM:
 
 const container = document.getElementById("allcards");
-container.appendChild(newDiv); // adds at the end
+container.appendChild(newDiv); // Adds at the end
 3. Event Bubbling
 
-Event bubbling is when an event starts on the element you clicked and then bubbles up through its parent elements.
+Event bubbling is the process where an event starts at the target element and then propagates upward through its ancestors.
 
-For example, if you click a button inside a div:
+Example: Clicking a button inside a <div>:
 
-The button’s click event fires first
+Button’s click event fires first
 
-Then the div’s click event fires
+Parent <div>’s click event fires next
 
-Then the body’s click event fires
+The <body> and document events fire afterward
 
-It’s like the event travels from the innermost element outwards.
+This allows multiple elements to react to a single event in a hierarchical way.
 
 4. Event Delegation
 
-Event delegation is a technique where you attach an event listener to a parent element instead of every child element.
+Event delegation is a technique where an event listener is attached to a parent element instead of each child element.
 
-When a child is clicked, you check event.target to see which element triggered the event.
+Use event.target or event.target.closest() to identify the actual child that triggered the event.
 
-Very useful for dynamic content or when you have many elements — saves memory and simplifies code.
+Extremely useful for dynamic content or when managing many elements.
 
 Example:
 
@@ -63,22 +67,25 @@ container.addEventListener("click", function(event) {
     card.remove();
   }
 });
+
+This approach avoids adding individual listeners to every card.
+
 5. preventDefault() vs stopPropagation()
 
-preventDefault(): Stops the browser’s default action.
+preventDefault()
+Stops the browser’s default behavior for an element.
+Example: Prevent a link from navigating or a form from submitting.
 
-Example: Preventing a form from submitting or a link from navigating.
-
-stopPropagation(): Stops the event from bubbling up to parent elements.
-
-Example: Preventing a parent click handler from running when a child is clicked.
+stopPropagation()
+Stops the event from bubbling up to parent elements.
+Example: Prevent a parent click handler from executing when a child element is clicked.
 
 Example:
 
 document.querySelector("a").addEventListener("click", function(e) {
-  e.preventDefault(); // link won’t navigate
+  e.preventDefault(); // Prevents the link from navigating
 });
 
 document.querySelector(".child").addEventListener("click", function(e) {
-  e.stopPropagation(); // click won’t bubble to parent
+  e.stopPropagation(); // Prevents the event from reaching parent elements
 });
