@@ -81,6 +81,7 @@ function Togglekorbe(id) {
 
       TotalSide1.classList.remove("hidden");
       TotalSide2.classList.add("hidden");
+      TotalSide3.classList.remove("hidden");
       of.classList.remove("hidden");
 
     }
@@ -101,6 +102,12 @@ function Togglekorbe(id) {
     TotalSide2.classList.add("hidden");
     TotalSide3.classList.remove('hidden')
     of.classList.add("hidden");
+
+    if(CardArr.length==0)
+    {
+      NoCards.classList.remove('hidden');
+    }
+
   } else if (id == "Rejectedbtn") {
     AllCards.classList.add("hidden");
     NoCards.classList.add('hidden');
@@ -118,8 +125,10 @@ function Togglekorbe(id) {
     else
     {
       FilteredSection.classList.remove("hidden");
+
       TotalSide1.classList.add("hidden");
       TotalSide2.classList.remove("hidden");
+      TotalSide3.classList.remove("hidden");
       of.classList.remove("hidden");
 
     }
@@ -140,6 +149,14 @@ MainContainer.addEventListener("click", function (event) {
     const Para = parentNode.querySelector(".Para").innerText;
 
     parentNode.querySelector(".Status").innerText = "Interview";
+
+    parentNode.querySelector(".Status").classList.add(
+      "border-green-600",
+      "border-1",
+      "text-green-600",
+      "font-semibold",
+      "rounded-lg"
+    )
 
     const CardInfo = {
       Company,
@@ -187,6 +204,14 @@ MainContainer.addEventListener("click", function (event) {
     const Para = parentNode.querySelector(".Para").innerText;
 
     parentNode.querySelector(".Status").innerText = "Rejected";
+
+    parentNode.querySelector(".Status").classList.add(
+      "border-green-600",
+      "border-1",
+      "text-green-600",
+      "font-semibold",
+      "rounded-lg"
+    )
 
     const CardInfo = {
       Company,
@@ -316,7 +341,7 @@ function keepInterview() {
             </div>
 
             <div class="space-y-1">
-              <button class="Status bg-gray-200 p-2">${i.Status}</button>
+              <button class="Status border-green-600 border-1 text-green-600 font-semibold rounded-lg bg-gray-200 p-2">${i.Status}</button>
               <p class=" Para text-gray-950">
                 ${i.Para}
               </p>
@@ -367,7 +392,7 @@ function keepRejected() {
             </div>
 
             <div class="space-y-1">
-              <button class="Status bg-gray-200 p-2">${i.Status}</button>
+              <button class="Status bg-gray-200 border-green-600 border-1 text-green-600 font-semibold rounded-lg p-2">${i.Status}</button>
               <p class=" Para text-gray-950">
                 ${i.Para}
               </p>
