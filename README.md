@@ -1,16 +1,12 @@
 1. Difference Between getElementById, getElementsByClassName, and querySelector / querySelectorAll
 
-getElementById
-Retrieves a single element by its unique ID. Fast and simple, but limited to IDs only.
+getElementById retrieves a single element by its unique ID. Fast and simple, but limited to IDs only.
 
-getElementsByClassName
-Returns a live collection of all elements with the specified class. Updates automatically if the DOM changes.
+getElementsByClassName returns a live collection of all elements with the specified class. Updates automatically if the DOM changes.
 
-querySelector
-Returns the first element matching any CSS selector (ID, class, tag, or attribute).
+querySelector returns the first element matching any CSS selector (ID, class, tag, or attribute).
 
-querySelectorAll
-Returns all elements matching a CSS selector as a static NodeList (does not automatically update if the DOM changes).
+querySelectorAll returns all elements matching a CSS selector as a static NodeList (does not automatically update if the DOM changes).
 
 Example:
 
@@ -20,24 +16,22 @@ const firstMatch = document.querySelector(".myClass");
 const allMatches = document.querySelectorAll(".myClass");
 2. Creating and Inserting a New Element
 
-To dynamically add elements to the DOM:
-
-Create the element:
+To dynamically add elements to the DOM, start by creating the element.
 
 const newDiv = document.createElement("div");
 
-Add content and attributes:
+Next, add content and attributes to the element.
 
 newDiv.innerText = "Hello World";
 newDiv.classList.add("card");
 
-Insert it into the DOM:
+Finally, insert the element into the DOM.
 
 const container = document.getElementById("allcards");
 container.appendChild(newDiv); // Adds at the end
 3. Event Bubbling
 
-Event bubbling is the process where an event starts at the target element and then propagates upward through its ancestors.
+Event bubbling is the process where an event starts at the target element and propagates upward through its ancestors.
 
 Example: Clicking a button inside a <div>:
 
@@ -72,12 +66,10 @@ This approach avoids adding individual listeners to every card.
 
 5. preventDefault() vs stopPropagation()
 
-preventDefault()
-Stops the browser’s default behavior for an element.
+preventDefault() stops the browser’s default behavior for an element.
 Example: Prevent a link from navigating or a form from submitting.
 
-stopPropagation()
-Stops the event from bubbling up to parent elements.
+stopPropagation() stops the event from bubbling up to parent elements.
 Example: Prevent a parent click handler from executing when a child element is clicked.
 
 Example:
