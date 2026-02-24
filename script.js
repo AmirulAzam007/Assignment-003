@@ -206,9 +206,9 @@ MainContainer.addEventListener("click", function (event) {
     parentNode.querySelector(".Status").innerText = "Rejected";
 
     parentNode.querySelector(".Status").classList.add(
-      "border-green-600",
+      "border-red-600",
       "border-1",
-      "text-green-600",
+      "text-red-600",
       "font-semibold",
       "rounded-lg"
     )
@@ -392,7 +392,7 @@ function keepRejected() {
             </div>
 
             <div class="space-y-1">
-              <button class="Status bg-gray-200 border-green-600 border-1 text-green-600 font-semibold rounded-lg p-2">${i.Status}</button>
+              <button class="Status bg-gray-200 border-red-600 border-1 text-red-600 font-semibold rounded-lg p-2">${i.Status}</button>
               <p class=" Para text-gray-950">
                 ${i.Para}
               </p>
