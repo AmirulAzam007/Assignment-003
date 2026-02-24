@@ -1,8 +1,8 @@
 ## 1. Difference Between getElementById, getElementsByClassName, and querySelector / querySelectorAll
 
-getElementById retrieves a single element by its unique ID. Fast and simple, but limited to IDs only.
+getElementById finds a single element by its unique ID. It is fast and but limited to IDs.
 
-getElementsByClassName returns a live collection of all elements with the specified class. Updates automatically if the DOM changes.
+getElementsByClassName returns a collection of all elements with the specified class. Updates automatically if the DOM changes.
 
 querySelector returns the first element matching any CSS selector (ID, class, tag, or attribute).
 
@@ -14,7 +14,8 @@ const myId = document.getElementById("myId");
 const myClass = document.getElementsByClassName("myClass");
 const firstMatch = document.querySelector(".myClass");
 const allMatches = document.querySelectorAll(".myClass");
-2. Creating and Inserting a New Element
+
+## 2. Creating and Inserting a New Element
 
 To dynamically add elements to the DOM, start by creating the element.
 
@@ -28,8 +29,9 @@ newDiv.classList.add("card");
 Finally, insert the element into the DOM.
 
 const container = document.getElementById("allcards");
-container.appendChild(newDiv); // Adds at the end
-3. Event Bubbling
+container.appendChild(newDiv); 
+
+## 3. Event Bubbling
 
 Event bubbling is the process where an event starts at the target element and propagates upward through its ancestors.
 
@@ -43,7 +45,7 @@ The <body> and document events fire afterward
 
 This allows multiple elements to react to a single event in a hierarchical way.
 
-4. Event Delegation
+## 4. Event Delegation
 
 Event delegation is a technique where an event listener is attached to a parent element instead of each child element.
 
@@ -64,7 +66,7 @@ container.addEventListener("click", function(event) {
 
 This approach avoids adding individual listeners to every card.
 
-5. preventDefault() vs stopPropagation()
+## 5. preventDefault() vs stopPropagation()
 
 preventDefault() stops the browser’s default behavior for an element.
 Example: Prevent a link from navigating or a form from submitting.
